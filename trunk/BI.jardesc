@@ -1,17 +1,17 @@
 <?xml version="1.0" encoding="WINDOWS-1252" standalone="no"?>
 <jardesc>
     <jar path="JasperIntegration/jasperIntegrationBIProject.jar"/>
-    <options buildIfNeeded="true" compress="true" descriptionLocation="/JasperIntegration/BI.jardesc" exportErrors="true" exportWarnings="true" includeDirectoryEntries="false" overwrite="false" saveDescription="true" storeRefactorings="false" useSourceFolders="false"/>
+    <options buildIfNeeded="true" compress="true" descriptionLocation="/JasperIntegration/BI.jardesc" exportErrors="true" exportWarnings="true" includeDirectoryEntries="true" overwrite="false" saveDescription="true" storeRefactorings="false" useSourceFolders="false"/>
     <storedRefactorings deprecationInfo="true" structuralOnly="false"/>
     <selectedProjects/>
-    <manifest generateManifest="true" mainClassHandleIdentifier="=JasperIntegration/src&lt;bi.jasperIntegration{ReportsMain.java[ReportsMain" manifestLocation="" manifestVersion="1.0" reuseManifest="false" saveManifest="false" usesManifest="true">
+    <manifest generateManifest="false" mainClassHandleIdentifier="=JasperIntegration/src&lt;bi.jasperIntegration{ReportsMain.java[ReportsMain" manifestLocation="/JasperIntegration/MANIFEST.MF" manifestVersion="1.0" reuseManifest="true" saveManifest="true" usesManifest="true">
         <sealing sealJar="false">
             <packagesToSeal/>
             <packagesToUnSeal/>
         </sealing>
     </manifest>
     <selectedElements exportClassFiles="true" exportJavaFiles="false" exportOutputFolder="false">
-        <folder path="/JasperIntegration/lib"/>
+        <folder path="/JasperIntegration/lib/jar"/>
         <javaElement handleIdentifier="=JasperIntegration/src"/>
     </selectedElements>
 </jardesc>
