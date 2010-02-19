@@ -5,33 +5,38 @@ import net.sf.jasperreports.engine.JasperReport;;
 import net.sf.jasperreports.engine.xml.JRXmlLoader;
 
 import java.io.File;
+import java.io.FileInputStream;
 import java.sql.Connection;
 
 import groovy.util.slurpersupport.GPathResult;
 
 
 class ReportsManager {
-	def directory;
+	String directory;
 	
-	void createReports(String paramXml, Connection conn) {
-		GPathResult reports = new XmlSlurper().parseText( paramXml);
+	void createReports(String reportsXml, Connection conn) {
+		GPathResult reports = new XmlSlurper().parse( reportsXml);
 		
 		directory = reports.'@reportsDir';
+		println "dir= $directory";
 		
-		reports.each {
-			GPathResult report = it;
-			JasperReport jr = loadReport(report.'@name');
+		reports.children().each {
+			//GPathResult report = it;
+			println "name=${it.'@name'}";
+			JasperReport jr = loadReport(it.'@name');
 			
-			report.param.each {
+			it.param.each {
 				println it;
 			}
 		}
 	}
 	
-	JasperReport loadReport(String reportName){
-		File f = new File(directory, reportName + '.jrxml');
-		jasperDesign = JRXmlLoader.load(jrxmlInputStream);
+	JasperReport loadReport(reportName){
+		File f = new File(directory, reportName.toString() + '.jrxml');
+		def jasperDesign = JRXmlLoader.load(new FileInputStream(f));
 		return JasperCompileManager.compileReport(jasperDesign);
 	}
 	
 }
+
+
