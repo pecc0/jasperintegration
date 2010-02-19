@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report2" language="groovy" pageWidth="842" pageHeight="595" orientation="Landscape" columnWidth="802" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20">
+	<property name="ireport.zoom" value="0.6830134553650705"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<queryString>
+		<![CDATA[SELECT
+    sum(ORDER_AMT) as AMT, first(PROD_DESC) as PROD, first(L_CAL_QTR.QTR_DESC) as QTR
+FROM
+    (( `L_CAL_DATE` L_CAL_DATE INNER JOIN `F_ORDER` F_ORDER ON L_CAL_DATE.`DATE_ID` = F_ORDER.`ORDER_DATE`)
+     INNER JOIN `L_CAL_QTR` L_CAL_QTR ON L_CAL_DATE.`QTR_ID` = L_CAL_QTR.`QTR_ID`)
+     INNER JOIN `L_SALES_PROD` L_SALES_PROD ON F_ORDER.`PROD_ID` = L_SALES_PROD.`PROD_ID`
+where
+L_CAL_DATE.YEAR_ID=2006
+AND PROD_GRP_ID=2
+ group by F_ORDER.PROD_ID, L_CAL_QTR.QTR_ID]]>
+	</queryString>
+	<field name="AMT" class="java.lang.Double">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="PROD" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="QTR" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<summary>
+		<band height="425" splitType="Stretch">
+			<lineChart>
+				<chart>
+					<reportElement x="0" y="0" width="802" height="425"/>
+					<chartTitle/>
+					<chartSubtitle/>
+					<chartLegend position="Right"/>
+				</chart>
+				<categoryDataset>
+					<categorySeries>
+						<seriesExpression><![CDATA[$F{PROD}]]></seriesExpression>
+						<categoryExpression><![CDATA[$F{QTR}]]></categoryExpression>
+						<valueExpression><![CDATA[$F{AMT}]]></valueExpression>
+					</categorySeries>
+				</categoryDataset>
+				<linePlot>
+					<plot>
+						<seriesColor seriesOrder="0" color="#FF0000"/>
+						<seriesColor seriesOrder="1" color="#FFFF00"/>
+						<seriesColor seriesOrder="2" color="#33FF00"/>
+						<seriesColor seriesOrder="3" color="#00FFFF"/>
+						<seriesColor seriesOrder="4" color="#FF00FF"/>
+						<seriesColor seriesOrder="5" color="#000000"/>
+					</plot>
+					<categoryAxisFormat>
+						<axisFormat>
+							<labelFont/>
+							<tickLabelFont/>
+						</axisFormat>
+					</categoryAxisFormat>
+					<valueAxisFormat>
+						<axisFormat>
+							<labelFont/>
+							<tickLabelFont/>
+						</axisFormat>
+					</valueAxisFormat>
+				</linePlot>
+			</lineChart>
+		</band>
+	</summary>
+</jasperReport>
