@@ -1,0 +1,212 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report1" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20">
+	<property name="ireport.zoom" value="1.1000000000000023"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<style name="Crosstab Data Text" isDefault="false" hAlign="Center"/>
+	<subDataset name="dataset1"/>
+	<subDataset name="dataset2"/>
+	<parameter name="NF" class="java.text.NumberFormat" isForPrompting="false">
+		<defaultValueExpression><![CDATA[new DecimalFormat("#,##0")]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[SELECT
+ first(PROD_GRP_DESC) AS GRP, first(PROD_DESC) AS PROD, count(*) as CNT, sum(ORDER_AMT) as AMT, AMT / CNT as AVG_R
+FROM
+    (( `L_CAL_DATE` L_CAL_DATE INNER JOIN `F_ORDER` F_ORDER ON L_CAL_DATE.`DATE_ID` = F_ORDER.`ORDER_DATE`)
+     INNER JOIN `L_CAL_QTR` L_CAL_QTR ON L_CAL_DATE.`QTR_ID` = L_CAL_QTR.`QTR_ID`)
+     INNER JOIN `L_SALES_PROD` L_SALES_PROD ON F_ORDER.`PROD_ID` = L_SALES_PROD.`PROD_ID`
+where L_CAL_DATE.YEAR_ID=2006
+
+group by F_ORDER.PROD_ID]]>
+	</queryString>
+	<field name="GRP" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="PROD" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="CNT" class="java.lang.Integer">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="AMT" class="java.lang.Double">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="AVG_R" class="java.lang.Double">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<variable name="REV_GR" class="java.math.BigDecimal" resetType="Group" resetGroup="PROD_GROUP" calculation="Sum">
+		<variableExpression><![CDATA[$F{AMT}]]></variableExpression>
+	</variable>
+	<variable name="CNT_GR" class="java.math.BigDecimal" resetType="Group" resetGroup="PROD_GROUP" calculation="Sum">
+		<variableExpression><![CDATA[$F{CNT}]]></variableExpression>
+	</variable>
+	<group name="PROD_GROUP">
+		<groupExpression><![CDATA[$F{GRP}]]></groupExpression>
+		<groupHeader>
+			<band height="23">
+				<textField>
+					<reportElement x="0" y="0" width="89" height="22" forecolor="#3333FF"/>
+					<textElement/>
+					<textFieldExpression class="java.lang.String"><![CDATA[$F{GRP}]]></textFieldExpression>
+				</textField>
+				<line>
+					<reportElement x="1" y="22" width="554" height="1" forecolor="#999999"/>
+				</line>
+				<line>
+					<reportElement x="342" y="0" width="1" height="22" forecolor="#999999"/>
+				</line>
+				<line>
+					<reportElement x="404" y="0" width="1" height="22" forecolor="#999999"/>
+				</line>
+				<line>
+					<reportElement x="478" y="0" width="1" height="22" forecolor="#999999"/>
+				</line>
+				<line>
+					<reportElement x="554" y="0" width="1" height="22" forecolor="#999999"/>
+				</line>
+				<line>
+					<reportElement x="0" y="0" width="1" height="23" forecolor="#999999"/>
+				</line>
+			</band>
+		</groupHeader>
+		<groupFooter>
+			<band height="21">
+				<rectangle>
+					<reportElement x="0" y="0" width="342" height="21" backcolor="#6666FF"/>
+					<graphicElement>
+						<pen lineColor="#999999"/>
+					</graphicElement>
+				</rectangle>
+				<rectangle>
+					<reportElement x="342" y="0" width="62" height="21" backcolor="#6666FF"/>
+					<graphicElement>
+						<pen lineColor="#999999"/>
+					</graphicElement>
+				</rectangle>
+				<rectangle>
+					<reportElement x="405" y="0" width="73" height="21" backcolor="#6666FF"/>
+					<graphicElement>
+						<pen lineColor="#999999"/>
+					</graphicElement>
+				</rectangle>
+				<rectangle>
+					<reportElement x="478" y="0" width="77" height="21" backcolor="#6666FF"/>
+					<graphicElement>
+						<pen lineColor="#999999"/>
+					</graphicElement>
+				</rectangle>
+				<textField>
+					<reportElement x="89" y="0" width="52" height="20" forecolor="#FFFFFF"/>
+					<textElement verticalAlignment="Middle"/>
+					<textFieldExpression class="java.lang.String"><![CDATA["Total"]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="405" y="0" width="73" height="20" forecolor="#FFFFFF"/>
+					<textElement textAlignment="Right" verticalAlignment="Middle"/>
+					<textFieldExpression class="java.lang.String"><![CDATA[$P{NF}.format($V{REV_GR})]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="480" y="1" width="73" height="20" forecolor="#FFFFFF"/>
+					<textElement textAlignment="Right" verticalAlignment="Middle"/>
+					<textFieldExpression class="java.lang.String"><![CDATA[$P{NF}.format($V{REV_GR} / $V{CNT_GR})]]></textFieldExpression>
+				</textField>
+			</band>
+		</groupFooter>
+	</group>
+	<columnHeader>
+		<band height="52">
+			<rectangle>
+				<reportElement x="0" y="0" width="343" height="52" backcolor="#6666FF"/>
+				<graphicElement>
+					<pen lineColor="#999999"/>
+				</graphicElement>
+			</rectangle>
+			<rectangle>
+				<reportElement x="343" y="0" width="62" height="52" backcolor="#6666FF"/>
+				<graphicElement>
+					<pen lineColor="#999999"/>
+				</graphicElement>
+			</rectangle>
+			<rectangle>
+				<reportElement x="404" y="0" width="74" height="52" backcolor="#6666FF"/>
+				<graphicElement>
+					<pen lineColor="#999999"/>
+				</graphicElement>
+			</rectangle>
+			<rectangle>
+				<reportElement x="478" y="0" width="77" height="52" backcolor="#6666FF"/>
+				<graphicElement>
+					<pen lineColor="#999999"/>
+				</graphicElement>
+			</rectangle>
+			<textField>
+				<reportElement x="1" y="0" width="88" height="52" forecolor="#FFFFFF"/>
+				<textElement verticalAlignment="Bottom"/>
+				<textFieldExpression class="java.lang.String"><![CDATA["Group"]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="89" y="0" width="253" height="52" forecolor="#FFFFFF"/>
+				<textElement verticalAlignment="Bottom"/>
+				<textFieldExpression class="java.lang.String"><![CDATA["Product"]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="342" y="0" width="62" height="52" forecolor="#FFFFFF"/>
+				<textElement textAlignment="Center" verticalAlignment="Bottom"/>
+				<textFieldExpression class="java.lang.String"><![CDATA["Orders containing products"]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="405" y="0" width="73" height="52" forecolor="#FFFFFF"/>
+				<textElement textAlignment="Center" verticalAlignment="Bottom"/>
+				<textFieldExpression class="java.lang.String"><![CDATA["Revenue"]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="478" y="0" width="76" height="52" forecolor="#FFFFFF"/>
+				<textElement textAlignment="Center" verticalAlignment="Bottom"/>
+				<textFieldExpression class="java.lang.String"><![CDATA["Average product revenue by order"]]></textFieldExpression>
+			</textField>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="21">
+			<textField>
+				<reportElement x="89" y="0" width="254" height="20" forecolor="#0066FF" backcolor="#0066FF"/>
+				<textElement/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{PROD}]]></textFieldExpression>
+			</textField>
+			<textField pattern="">
+				<reportElement x="343" y="0" width="61" height="20"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{NF}.format($F{CNT})]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0">
+				<reportElement x="405" y="1" width="74" height="19"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{NF}.format($F{AMT})]]></textFieldExpression>
+			</textField>
+			<textField pattern="###0.##">
+				<reportElement x="479" y="0" width="76" height="20"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{NF}.format($F{AMT}/$F{CNT})]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement x="342" y="0" width="1" height="21" forecolor="#999999"/>
+			</line>
+			<line>
+				<reportElement x="0" y="20" width="555" height="1" forecolor="#999999"/>
+			</line>
+			<line>
+				<reportElement x="404" y="0" width="1" height="21" forecolor="#999999"/>
+			</line>
+			<line>
+				<reportElement x="478" y="0" width="1" height="21" forecolor="#999999"/>
+			</line>
+			<line>
+				<reportElement x="554" y="0" width="1" height="21" forecolor="#999999"/>
+			</line>
+			<line>
+				<reportElement x="0" y="0" width="1" height="21" forecolor="#999999"/>
+			</line>
+		</band>
+	</detail>
+</jasperReport>
