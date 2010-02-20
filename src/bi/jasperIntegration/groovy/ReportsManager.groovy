@@ -1,4 +1,6 @@
 package bi.jasperIntegration.groovy
+import net.sf.jasperreports.engine.export.oasis.JROdsExporter;
+import net.sf.jasperreports.engine.export.oasis.JROdtExporter;
 
 import net.sf.jasperreports.engine.*;
 import net.sf.jasperreports.engine.export.*;
@@ -47,6 +49,10 @@ class ReportsManager {
 				outputFileName = reportName
 			}
 			//CSV
+			def imagesMap = [:];
+			String imagesDir = "${outputFileName}_files";
+			File imgDir = new File(outputDir, imagesDir);
+			
 			if("CSV".equalsIgnoreCase(reportFormat)) {
 				println("CSV report exported");
 				String delimiter = (String)it.delimiter;
@@ -64,6 +70,10 @@ class ReportsManager {
 			} else if ("HTML".equalsIgnoreCase(reportFormat)) {
 				println("HTML report exported");
 				exporter = new JRHtmlExporter();
+				exporter.setParameter( JRHtmlExporterParameter.IMAGES_DIR, imgDir);
+				exporter.setParameter( JRHtmlExporterParameter.IMAGES_MAP, imagesMap);
+				exporter.setParameter( JRHtmlExporterParameter.IMAGES_URI, imagesDir + "/");
+				exporter.setParameter( JRHtmlExporterParameter.IS_OUTPUT_IMAGES_TO_DIR, Boolean.TRUE);
 				//TXT
 			} else if ("TXT".equalsIgnoreCase(reportFormat)) {
 				println("TXT report exported");
@@ -72,17 +82,32 @@ class ReportsManager {
 			} else if ("RTF".equalsIgnoreCase(reportFormat)) {
 				println("RTF report exported");
 				exporter = new JRRtfExporter();
+			} else if ("ODT".equalsIgnoreCase(reportFormat)) {
+				println("ODT report exported");
+				exporter = new JROdtExporter();
+			} else if ("ODS".equalsIgnoreCase(reportFormat)) {
+				println("ODS report exported");
+				exporter = new JROdsExporter();
 			}
 			else{
 				println("Error: Format type for " + reportName + " is missing (or not correct):"+reportFormat);
+				return;
 			}
 			
 			exporter.setParameter(JRExporterParameter.JASPER_PRINT, jasperPrint);
 			exporter.setParameter(JRExporterParameter.OUTPUT_STREAM, baos);	
-			exporter.setParameter(JRExporterParameter.OUTPUT_FILE_NAME, outputFileName);				
+			//exporter.setParameter(JRExporterParameter.OUTPUT_FILE_NAME, outputFileName);				
 			exporter.exportReport();	
 			
-			saveReport(baos.toByteArray(), new File(outputDir, "$outputFileName.${reportFormat.toLowerCase()}"))
+			saveFile(baos.toByteArray(), new File(outputDir, "$outputFileName.${reportFormat.toLowerCase()}"))
+			
+			if ("HTML".equalsIgnoreCase(reportFormat)) {
+				if (imgDir.exists()) {
+					imgDir.deleteDir();
+				}
+				imgDir.mkdirs();
+				imagesMap.each { saveFile it.value, new File(imgDir, it.key) }
+			}
 		}
 	}
 	
@@ -92,7 +117,7 @@ class ReportsManager {
 		return JasperCompileManager.compileReport(jasperDesign);
 	}
 	
-	void saveReport(byte[] report, File f) {
+	void saveFile(byte[] report, File f) {
 		println f;
 		FileOutputStream fos = new FileOutputStream(f);
 		fos.write(report);

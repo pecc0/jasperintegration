@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report1" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20">
-	<property name="ireport.zoom" value="1.1000000000000023"/>
-	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="0"/>
+	<property name="ireport.zoom" value="6.727499949325663"/>
+	<property name="ireport.x" value="3285"/>
+	<property name="ireport.y" value="409"/>
 	<style name="Crosstab Data Text" isDefault="false" hAlign="Center"/>
 	<subDataset name="dataset1"/>
 	<subDataset name="dataset2"/>
@@ -46,166 +46,124 @@ group by F_ORDER.PROD_ID]]>
 		<groupHeader>
 			<band height="23">
 				<textField>
-					<reportElement x="0" y="0" width="89" height="22" forecolor="#3333FF"/>
-					<textElement/>
+					<reportElement x="1" y="0" width="88" height="22" forecolor="#3333FF"/>
+					<textElement verticalAlignment="Middle"/>
 					<textFieldExpression class="java.lang.String"><![CDATA[$F{GRP}]]></textFieldExpression>
 				</textField>
+				<line>
+					<reportElement x="0" y="0" width="1" height="23" forecolor="#999999"/>
+				</line>
 				<line>
 					<reportElement x="1" y="22" width="554" height="1" forecolor="#999999"/>
 				</line>
 				<line>
-					<reportElement x="342" y="0" width="1" height="22" forecolor="#999999"/>
-				</line>
-				<line>
-					<reportElement x="404" y="0" width="1" height="22" forecolor="#999999"/>
-				</line>
-				<line>
-					<reportElement x="478" y="0" width="1" height="22" forecolor="#999999"/>
-				</line>
-				<line>
 					<reportElement x="554" y="0" width="1" height="22" forecolor="#999999"/>
-				</line>
-				<line>
-					<reportElement x="0" y="0" width="1" height="23" forecolor="#999999"/>
 				</line>
 			</band>
 		</groupHeader>
 		<groupFooter>
 			<band height="21">
-				<rectangle>
-					<reportElement x="0" y="0" width="342" height="21" backcolor="#6666FF"/>
-					<graphicElement>
-						<pen lineColor="#999999"/>
-					</graphicElement>
-				</rectangle>
-				<rectangle>
-					<reportElement x="342" y="0" width="62" height="21" backcolor="#6666FF"/>
-					<graphicElement>
-						<pen lineColor="#999999"/>
-					</graphicElement>
-				</rectangle>
-				<rectangle>
-					<reportElement x="405" y="0" width="73" height="21" backcolor="#6666FF"/>
-					<graphicElement>
-						<pen lineColor="#999999"/>
-					</graphicElement>
-				</rectangle>
-				<rectangle>
-					<reportElement x="478" y="0" width="77" height="21" backcolor="#6666FF"/>
-					<graphicElement>
-						<pen lineColor="#999999"/>
-					</graphicElement>
-				</rectangle>
 				<textField>
-					<reportElement x="89" y="0" width="52" height="20" forecolor="#FFFFFF"/>
+					<reportElement mode="Opaque" x="89" y="0" width="315" height="20" forecolor="#FFFFFF" backcolor="#3366FF"/>
 					<textElement verticalAlignment="Middle"/>
 					<textFieldExpression class="java.lang.String"><![CDATA["Total"]]></textFieldExpression>
 				</textField>
 				<textField>
-					<reportElement x="405" y="0" width="73" height="20" forecolor="#FFFFFF"/>
+					<reportElement mode="Opaque" x="405" y="0" width="74" height="20" forecolor="#FFFFFF" backcolor="#3366FF"/>
 					<textElement textAlignment="Right" verticalAlignment="Middle"/>
 					<textFieldExpression class="java.lang.String"><![CDATA[$P{NF}.format($V{REV_GR})]]></textFieldExpression>
 				</textField>
 				<textField>
-					<reportElement x="480" y="1" width="73" height="20" forecolor="#FFFFFF"/>
+					<reportElement mode="Opaque" x="480" y="0" width="74" height="20" forecolor="#FFFFFF" backcolor="#3366FF"/>
 					<textElement textAlignment="Right" verticalAlignment="Middle"/>
 					<textFieldExpression class="java.lang.String"><![CDATA[$P{NF}.format($V{REV_GR} / $V{CNT_GR})]]></textFieldExpression>
 				</textField>
+				<frame>
+					<reportElement mode="Opaque" x="1" y="0" width="88" height="20" backcolor="#3366FF"/>
+				</frame>
+				<line>
+					<reportElement x="0" y="0" width="1" height="21" forecolor="#999999"/>
+				</line>
+				<line>
+					<reportElement x="1" y="20" width="554" height="1" forecolor="#999999"/>
+				</line>
+				<line>
+					<reportElement x="554" y="0" width="1" height="20" forecolor="#999999"/>
+				</line>
 			</band>
 		</groupFooter>
 	</group>
 	<columnHeader>
-		<band height="52">
-			<rectangle>
-				<reportElement x="0" y="0" width="343" height="52" backcolor="#6666FF"/>
-				<graphicElement>
-					<pen lineColor="#999999"/>
-				</graphicElement>
-			</rectangle>
-			<rectangle>
-				<reportElement x="343" y="0" width="62" height="52" backcolor="#6666FF"/>
-				<graphicElement>
-					<pen lineColor="#999999"/>
-				</graphicElement>
-			</rectangle>
-			<rectangle>
-				<reportElement x="404" y="0" width="74" height="52" backcolor="#6666FF"/>
-				<graphicElement>
-					<pen lineColor="#999999"/>
-				</graphicElement>
-			</rectangle>
-			<rectangle>
-				<reportElement x="478" y="0" width="77" height="52" backcolor="#6666FF"/>
-				<graphicElement>
-					<pen lineColor="#999999"/>
-				</graphicElement>
-			</rectangle>
+		<band height="54">
 			<textField>
-				<reportElement x="1" y="0" width="88" height="52" forecolor="#FFFFFF"/>
+				<reportElement mode="Opaque" x="1" y="1" width="88" height="52" forecolor="#FFFFFF" backcolor="#3366FF"/>
 				<textElement verticalAlignment="Bottom"/>
 				<textFieldExpression class="java.lang.String"><![CDATA["Group"]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="89" y="0" width="253" height="52" forecolor="#FFFFFF"/>
+				<reportElement mode="Opaque" x="89" y="1" width="252" height="52" forecolor="#FFFFFF" backcolor="#3366FF"/>
 				<textElement verticalAlignment="Bottom"/>
 				<textFieldExpression class="java.lang.String"><![CDATA["Product"]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="342" y="0" width="62" height="52" forecolor="#FFFFFF"/>
+				<reportElement mode="Opaque" x="342" y="1" width="62" height="52" forecolor="#FFFFFF" backcolor="#3366FF"/>
 				<textElement textAlignment="Center" verticalAlignment="Bottom"/>
 				<textFieldExpression class="java.lang.String"><![CDATA["Orders containing products"]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="405" y="0" width="73" height="52" forecolor="#FFFFFF"/>
+				<reportElement mode="Opaque" x="405" y="1" width="74" height="52" forecolor="#FFFFFF" backcolor="#3366FF"/>
 				<textElement textAlignment="Center" verticalAlignment="Bottom"/>
 				<textFieldExpression class="java.lang.String"><![CDATA["Revenue"]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="478" y="0" width="76" height="52" forecolor="#FFFFFF"/>
+				<reportElement mode="Opaque" x="480" y="1" width="74" height="52" forecolor="#FFFFFF" backcolor="#3366FF"/>
 				<textElement textAlignment="Center" verticalAlignment="Bottom"/>
 				<textFieldExpression class="java.lang.String"><![CDATA["Average product revenue by order"]]></textFieldExpression>
 			</textField>
+			<line>
+				<reportElement x="1" y="0" width="554" height="1" forecolor="#999999"/>
+			</line>
+			<line>
+				<reportElement x="0" y="0" width="1" height="54" forecolor="#999999"/>
+			</line>
+			<line>
+				<reportElement x="1" y="53" width="554" height="1" forecolor="#999999"/>
+			</line>
+			<line>
+				<reportElement x="554" y="1" width="1" height="53" forecolor="#999999"/>
+			</line>
 		</band>
 	</columnHeader>
 	<detail>
 		<band height="21">
 			<textField>
-				<reportElement x="89" y="0" width="254" height="20" forecolor="#0066FF" backcolor="#0066FF"/>
+				<reportElement x="89" y="0" width="252" height="20" forecolor="#0066FF" backcolor="#0066FF"/>
 				<textElement/>
 				<textFieldExpression class="java.lang.String"><![CDATA[$F{PROD}]]></textFieldExpression>
 			</textField>
 			<textField pattern="">
-				<reportElement x="343" y="0" width="61" height="20"/>
+				<reportElement x="342" y="0" width="62" height="20"/>
 				<textElement textAlignment="Right"/>
 				<textFieldExpression class="java.lang.String"><![CDATA[$P{NF}.format($F{CNT})]]></textFieldExpression>
 			</textField>
 			<textField pattern="#,##0">
-				<reportElement x="405" y="1" width="74" height="19"/>
+				<reportElement x="405" y="0" width="74" height="20"/>
 				<textElement textAlignment="Right"/>
 				<textFieldExpression class="java.lang.String"><![CDATA[$P{NF}.format($F{AMT})]]></textFieldExpression>
 			</textField>
 			<textField pattern="###0.##">
-				<reportElement x="479" y="0" width="76" height="20"/>
+				<reportElement x="480" y="0" width="74" height="20"/>
 				<textElement textAlignment="Right"/>
 				<textFieldExpression class="java.lang.String"><![CDATA[$P{NF}.format($F{AMT}/$F{CNT})]]></textFieldExpression>
 			</textField>
 			<line>
-				<reportElement x="342" y="0" width="1" height="21" forecolor="#999999"/>
-			</line>
-			<line>
 				<reportElement x="0" y="20" width="555" height="1" forecolor="#999999"/>
 			</line>
 			<line>
-				<reportElement x="404" y="0" width="1" height="21" forecolor="#999999"/>
+				<reportElement x="0" y="0" width="1" height="20" forecolor="#999999"/>
 			</line>
 			<line>
-				<reportElement x="478" y="0" width="1" height="21" forecolor="#999999"/>
-			</line>
-			<line>
-				<reportElement x="554" y="0" width="1" height="21" forecolor="#999999"/>
-			</line>
-			<line>
-				<reportElement x="0" y="0" width="1" height="21" forecolor="#999999"/>
+				<reportElement x="554" y="0" width="1" height="20" forecolor="#999999"/>
 			</line>
 		</band>
 	</detail>
