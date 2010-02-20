@@ -5,6 +5,8 @@ import java.sql.Connection;
 import java.sql.Driver;
 import java.sql.DriverManager;
 
+import net.sf.jasperreports.engine.export.JRHtmlExporterParameter;
+
 import bi.jasperIntegration.groovy.ReportsManager;
 
 public class ReportsMain {

@@ -1,0 +1,11 @@
+<reports reportsDir="reports" outputDir="output">
+	<report name="report1">
+		<format>HTML</format>
+	</report>
+	<report name="report2">
+		<format>HTML</format>
+	</report>
+	<report name="report3">
+		<format>HTML</format>
+	</report>
+</reports>

@@ -1,11 +1,14 @@
 <reports reportsDir="reports" outputDir="output">
+
 	<report name="report1">
-		<outputName>report1</outputName>
-		<format>PDF</format>
+		<format>ODT</format>
+	</report>
+	<report name="report1">
+		<format>ODS</format>
 	</report>
 	<report name="report2">
 		<outputName>report2</outputName>
-		<format>PDF</format>
+		<format>ODT</format>
 	</report>
 	<report name="report3">
 		<outputName>report3</outputName>
