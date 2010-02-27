@@ -23,15 +23,24 @@ public class ReportsMain {
 		for (int i = 0; i < args.length; i++) {
 			if ("-reports".equalsIgnoreCase(args[i])) {
 				reportsXml = args[++i];
-			} else if ("-cs".equalsIgnoreCase(args[i]) || "--connectionstr".equalsIgnoreCase(args[i])) {
-				connectionString = args[++i];
 			} else if ("-driver".equalsIgnoreCase(args[i])) {
 				driver = args[++i];
+			} else if ("-cs".equalsIgnoreCase(args[i]) || "--connectionstr".equalsIgnoreCase(args[i])) {
+				connectionString = args[++i];
+			} else {
+				System.out.println("Usage: ");
+				System.out.println("\t-reports The XML that describes the reports");
+				System.out.println("\t-driver The Java driver class used to connect to the data source");
+				System.out.println("\t-cs or --connectionstr The connection string used by the driver");
+				
+				return;
 			}
 		}
-		System.out.println("reports=" + reportsXml + ";");
-		System.out.println("driver=" + driver + ";");
-		System.out.println("connectionString=" + connectionString + ";\n");
+		
+		System.out.println("Current parameters:");
+		System.out.println("-reports=" + reportsXml + ";");
+		System.out.println("-driver=" + driver + ";");
+		System.out.println("-cs=" + connectionString + ";\n");
 		
 		try {
 			@SuppressWarnings("unused")

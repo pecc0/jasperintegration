@@ -1,24 +1,26 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report1" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20">
-	<property name="ireport.zoom" value="6.727499949325663"/>
-	<property name="ireport.x" value="3285"/>
-	<property name="ireport.y" value="409"/>
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
 	<style name="Crosstab Data Text" isDefault="false" hAlign="Center"/>
 	<subDataset name="dataset1"/>
 	<subDataset name="dataset2"/>
 	<parameter name="NF" class="java.text.NumberFormat" isForPrompting="false">
 		<defaultValueExpression><![CDATA[new DecimalFormat("#,##0")]]></defaultValueExpression>
 	</parameter>
+	<parameter name="QUARTER" class="java.lang.String" isForPrompting="false">
+		<defaultValueExpression><![CDATA["2005 Q4"]]></defaultValueExpression>
+	</parameter>
 	<queryString>
 		<![CDATA[SELECT
- first(PROD_GRP_DESC) AS GRP, first(PROD_DESC) AS PROD, count(*) as CNT, sum(ORDER_AMT) as AMT, AMT / CNT as AVG_R
+ first(PROD_GRP_DESC) AS GRP, first(PROD_DESC) AS PROD, count(*) as CNT, sum(ORDER_AMT) as AMT,
+    AMT / CNT as AVG_R, first(L_CAL_QTR.QTR_DESC) as QUARTER
 FROM
     (( `L_CAL_DATE` L_CAL_DATE INNER JOIN `F_ORDER` F_ORDER ON L_CAL_DATE.`DATE_ID` = F_ORDER.`ORDER_DATE`)
      INNER JOIN `L_CAL_QTR` L_CAL_QTR ON L_CAL_DATE.`QTR_ID` = L_CAL_QTR.`QTR_ID`)
      INNER JOIN `L_SALES_PROD` L_SALES_PROD ON F_ORDER.`PROD_ID` = L_SALES_PROD.`PROD_ID`
-where L_CAL_DATE.YEAR_ID=2006
-
-group by F_ORDER.PROD_ID]]>
+group by F_ORDER.PROD_ID, L_CAL_DATE.QTR_ID]]>
 	</queryString>
 	<field name="GRP" class="java.lang.String">
 		<fieldDescription><![CDATA[]]></fieldDescription>
@@ -35,12 +37,16 @@ group by F_ORDER.PROD_ID]]>
 	<field name="AVG_R" class="java.lang.Double">
 		<fieldDescription><![CDATA[]]></fieldDescription>
 	</field>
+	<field name="QUARTER" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
 	<variable name="REV_GR" class="java.math.BigDecimal" resetType="Group" resetGroup="PROD_GROUP" calculation="Sum">
 		<variableExpression><![CDATA[$F{AMT}]]></variableExpression>
 	</variable>
 	<variable name="CNT_GR" class="java.math.BigDecimal" resetType="Group" resetGroup="PROD_GROUP" calculation="Sum">
 		<variableExpression><![CDATA[$F{CNT}]]></variableExpression>
 	</variable>
+	<filterExpression><![CDATA[$F{QUARTER}.equals($P{QUARTER})]]></filterExpression>
 	<group name="PROD_GROUP">
 		<groupExpression><![CDATA[$F{GRP}]]></groupExpression>
 		<groupHeader>
