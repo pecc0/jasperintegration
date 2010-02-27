@@ -1,3 +1,4 @@
+
 package bi.jasperIntegration.groovy
 import net.sf.jasperreports.engine.export.oasis.JROdsExporter;
 import net.sf.jasperreports.engine.export.oasis.JROdtExporter;
@@ -6,6 +7,7 @@ import net.sf.jasperreports.engine.*;
 import net.sf.jasperreports.engine.export.*;
 import net.sf.jasperreports.engine.xml.JRXmlLoader;
 import net.sf.jasperreports.engine.JasperPrint;
+import java.text.MessageFormat;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -34,8 +36,10 @@ class ReportsManager {
 			def parameters = [:];
 			it.param.each {
 				println "param ${it.'@key'}=${it.'@value'}";
-				parameters[it.'@key'] = it.'@value';
+				//FIXME: add support for other types of parameters
+				parameters[it.'@key'.toString()] = it.'@value'.toString(); 
 			}
+			
 			JasperPrint jasperPrint = JasperFillManager.fillReport(jr, parameters, conn);
 			
 			ByteArrayOutputStream baos = new ByteArrayOutputStream();
@@ -50,7 +54,10 @@ class ReportsManager {
 			}
 			//CSV
 			def imagesMap = [:];
-			String imagesDir = "${outputFileName}_files";
+			String imagesDir = MessageFormat.format(it.imagesDir?.toString() ?: "{0}_files", outputFileName, new Date()) ;
+			imagesDir = imagesDir.replace('\\', '.');
+			imagesDir = imagesDir.replace('/', '.');
+			imagesDir = imagesDir.replace(':', '.');
 			File imgDir = new File(outputDir, imagesDir);
 			
 			if("CSV".equalsIgnoreCase(reportFormat)) {
@@ -78,6 +85,8 @@ class ReportsManager {
 			} else if ("TXT".equalsIgnoreCase(reportFormat)) {
 				println("TXT report exported");
 				exporter = new JRTextExporter();
+				exporter.setParameter JRTextExporterParameter.CHARACTER_WIDTH, Float.parseFloat(it.characterWidth?.toString() ?: "5")
+				exporter.setParameter JRTextExporterParameter.CHARACTER_HEIGHT, Float.parseFloat(it.characterHeight?.toString() ?: "10")
 				//RTF
 			} else if ("RTF".equalsIgnoreCase(reportFormat)) {
 				println("RTF report exported");
@@ -91,6 +100,7 @@ class ReportsManager {
 			}
 			else{
 				println("Error: Format type for " + reportName + " is missing (or not correct):"+reportFormat);
+				println("Allowed formats: CSV, PDF, XLS, HTML, TXT, ODT, ODS");
 				return;
 			}
 			

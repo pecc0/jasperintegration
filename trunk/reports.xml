@@ -1,17 +1,26 @@
 <reports reportsDir="reports" outputDir="output">
 
 	<report name="report1">
-		<format>ODT</format>
-	</report>
-	<report name="report1">
-		<format>ODS</format>
+		<format>PDF</format>
+		<param key="QUARTER" value="2006 Q3"></param>
 	</report>
 	<report name="report2">
-		<outputName>report2</outputName>
-		<format>ODT</format>
+		<format>PDF</format>
+		<param key="YEAR" value="2006"></param>
+		<param key="GROUP" value="Client"></param>
+		<param key="GROUP" value="Services"></param>
 	</report>
 	<report name="report3">
 		<outputName>report3</outputName>
-		<format>PDF</format>
+		<format>HTML</format>
+		<imagesDir>{0}_images{1,date,yyyyMMdd}</imagesDir>
+		<param key="YEAR" value="2006"></param>
+	</report>
+	<report name="report1">
+		<format>TXT</format>
+		<delimiter>;</delimiter>
+		<characterWidth>7</characterWidth>
+		<characterHeight>14</characterHeight>
+		<param key="YEAR" value="2006"></param>
 	</report>
 </reports>

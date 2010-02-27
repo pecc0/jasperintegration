@@ -3,16 +3,21 @@
 	<property name="ireport.zoom" value="0.6830134553650705"/>
 	<property name="ireport.x" value="0"/>
 	<property name="ireport.y" value="0"/>
+	<parameter name="YEAR" class="java.lang.String" isForPrompting="false">
+		<defaultValueExpression><![CDATA["2005"]]></defaultValueExpression>
+	</parameter>
+	<parameter name="GROUP" class="java.lang.String" isForPrompting="false">
+		<defaultValueExpression><![CDATA["Server"]]></defaultValueExpression>
+	</parameter>
 	<queryString>
 		<![CDATA[SELECT
-    sum(ORDER_AMT) as AMT, first(PROD_DESC) as PROD, first(L_CAL_QTR.QTR_DESC) as QTR
+    sum(ORDER_AMT) as AMT, first(PROD_DESC) as PROD, first(L_CAL_QTR.QTR_DESC) as QTR,
+    first(PROD_GRP_DESC) as GRP, first(L_CAL_DATE.YEAR_ID) as aYEAR
 FROM
     (( `L_CAL_DATE` L_CAL_DATE INNER JOIN `F_ORDER` F_ORDER ON L_CAL_DATE.`DATE_ID` = F_ORDER.`ORDER_DATE`)
      INNER JOIN `L_CAL_QTR` L_CAL_QTR ON L_CAL_DATE.`QTR_ID` = L_CAL_QTR.`QTR_ID`)
      INNER JOIN `L_SALES_PROD` L_SALES_PROD ON F_ORDER.`PROD_ID` = L_SALES_PROD.`PROD_ID`
-where
-L_CAL_DATE.YEAR_ID=2006
-AND PROD_GRP_ID=2
+
  group by F_ORDER.PROD_ID, L_CAL_QTR.QTR_ID]]>
 	</queryString>
 	<field name="AMT" class="java.lang.Double">
@@ -24,6 +29,14 @@ AND PROD_GRP_ID=2
 	<field name="QTR" class="java.lang.String">
 		<fieldDescription><![CDATA[]]></fieldDescription>
 	</field>
+	<field name="GRP" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="aYEAR" class="java.lang.Double">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<filterExpression><![CDATA[Double.parseDouble( $P{YEAR} )==$F{aYEAR}
+&& $F{GRP}.equalsIgnoreCase( $P{GROUP} )]]></filterExpression>
 	<summary>
 		<band height="425" splitType="Stretch">
 			<lineChart>
