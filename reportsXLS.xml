@@ -1,14 +1,16 @@
 <reports reportsDir="reports" outputDir="output">
 	<report name="report1">
-		<outputName>report1</outputName>
 		<format>XLS</format>
+		<param key="QUARTER" value="2006 Q3"></param>
 	</report>
 	<report name="report2">
-		<outputName>report2</outputName>
 		<format>XLS</format>
+		<param key="YEAR" value="2006"></param>
+		<param key="GROUP" value="Client"></param>
+		<param key="GROUP" value="Services"></param>
 	</report>
 	<report name="report3">
-		<outputName>report3</outputName>
 		<format>XLS</format>
+		<param key="YEAR" value="2006"></param>
 	</report>
 </reports>
