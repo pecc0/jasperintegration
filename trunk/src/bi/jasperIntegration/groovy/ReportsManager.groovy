@@ -109,6 +109,14 @@ class ReportsManager {
 			//exporter.setParameter(JRExporterParameter.OUTPUT_FILE_NAME, outputFileName);				
 			exporter.exportReport();	
 			
+			File d = new File(outputDir);
+			if (d.exists()) {
+				if (!d.isDirectory()) {
+					d.delete();
+				}
+			} else {
+				d.mkdirs();
+			}
 			saveFile(baos.toByteArray(), new File(outputDir, "$outputFileName.${reportFormat.toLowerCase()}"))
 			
 			if ("HTML".equalsIgnoreCase(reportFormat)) {

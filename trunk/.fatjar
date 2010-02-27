@@ -1,0 +1,14 @@
+#Fat Jar Configuration File
+#Sat Feb 27 20:22:32 EET 2010
+onejar.license.required=false
+manifest.classpath=
+manifest.removesigners=true
+onejar.checkbox=true
+jarname=jasperIntegrationBIProject.jar
+manifest.mergeall=true
+manifest.mainclass=bi.jasperIntegration.ReportsMain
+manifest.file=<createnew>
+jarname.isextern=false
+onejar.expand=
+excludes=
+includes=
