@@ -1,0 +1,1 @@
+Project for my BI course showing how to itegrate jasper in any java base app, particularly in a standalone app
